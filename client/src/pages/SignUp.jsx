@@ -2,7 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import api from "../api/index";
+import { signup } from "../actions/auth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -21,17 +21,9 @@ const SignUp = () => {
       setSubmitted(true);
       return setErrorMessage("Please fill out all fields!");
     }
-    try {
-      setLoading(true);
-      setErrorMessage(null);
-      const data = await api.post("/auth/signup", formData);
-      if(data) {
-        navigate('/sign-in')
-      }
-    } catch (error) {
-      setErrorMessage(error.message);
-    } finally {
-      setLoading(false);
+    const data = await signup(formData, setErrorMessage, setLoading);
+    if (data.status === 201) {
+      navigate("/sign-in");
     }
   };
   return (
