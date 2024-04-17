@@ -10,7 +10,7 @@ import {
 } from "./pages/imports";
 
 // components
-import { Header } from "./components/imports";
+import { Header, Footer } from "./components/imports";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/projects" element={<Projects />} />
     </Routes>
+    <Footer/>
     </>
   );
 }
