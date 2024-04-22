@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 import { signup } from "../actions/auth";
 
 const SignUp = () => {
@@ -22,7 +23,7 @@ const SignUp = () => {
       return setErrorMessage("Please fill out all fields!");
     }
     const data = await signup(formData, setErrorMessage, setLoading);
-    if (data.status === 201) {
+    if (data?.status) {
       navigate("/sign-in");
     }
   };

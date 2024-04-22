@@ -2,14 +2,18 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { signInFailure } from "../redux/user/userSlice";
+
+
 import { signin } from "../actions/auth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const {loading, error: errorMessage} = useSelector(state => state.user)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -19,9 +23,12 @@ const SignIn = () => {
     e.preventDefault();
     if (!formData.password || !formData.email) {
       setSubmitted(true);
-      return setErrorMessage("Please fill out all fields!");
+      return dispatch(signInFailure('Please fill all the required fields'))
     }
-    const data = await signin(formData, setErrorMessage, setLoading);
+
+    const data = await signin(formData, dispatch);
+
+    console.log(data)
     if (data?.status) {
       navigate("/");
     }

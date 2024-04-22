@@ -1,6 +1,7 @@
 import api from "../api";
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
 
-const signup = async (formData,  setErrorMessage, setLoading) => {
+const signup = async (formData,  setErrorMessage, setLoading) =>{
   try {
     setLoading(true);
     setErrorMessage(null);
@@ -13,18 +14,16 @@ const signup = async (formData,  setErrorMessage, setLoading) => {
     setLoading(false);
   }
 };
-const signin = async (formData,  setErrorMessage, setLoading) => {
+const signin = async (formData,dispatch) => {
   try {
-    setLoading(true);
-    setErrorMessage(null);
-    const data = await api.post("/auth/signin", formData);
-  
+    dispatch(signInStart())
+    const {data} = await api.post("/auth/signin", formData);
+    
+    dispatch(signInSuccess(data))
     return data;
   } catch (error) {
-    setErrorMessage(error.message);
-  } finally {
-    setLoading(false);
-  }
+    dispatch(signInFailure(error.message))
+  } 
 };
 
 
