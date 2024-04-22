@@ -28,8 +28,7 @@ const SignIn = () => {
 
     const data = await signin(formData, dispatch);
 
-    console.log(data)
-    if (data?.status) {
+    if (data) {
       navigate("/");
     }
   };
