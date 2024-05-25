@@ -19,19 +19,20 @@ const DashSidebar = () => {
   return (
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
+        <Sidebar.ItemGroup className="flex flex-col">
           <Link to={"/dashboard?tab=profile"}>
             <Sidebar.Item
               active={tab === "profile"}
               icon={FaUserTie}
               label={"User"}
               labelColor="dark"
+              as='div'
             >
               Profile
             </Sidebar.Item>
           </Link>
           <Link to={"/dashboard?tab=settings"}>
-            <Sidebar.Item active={tab === "settings"} icon={IoSettings}>
+            <Sidebar.Item active={tab === "settings"} icon={IoSettings} as='div'>
               Settings
             </Sidebar.Item>
           </Link>
@@ -40,6 +41,7 @@ const DashSidebar = () => {
           <Sidebar.Item
             active={tab === "logout"}
             icon={IoIosLogOut}
+            as='div'
             >
             Sign Out
           </Sidebar.Item>
