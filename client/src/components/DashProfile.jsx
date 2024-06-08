@@ -18,7 +18,6 @@ const DashProfile = () => {
   const filePickerRef = useRef();
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
-  console.log(imageFileUploadProgress, imageFileUploadError);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -45,7 +44,7 @@ const DashProfile = () => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setImageFileUploadProgress(progress.toFixed(0));
       },
-      (error) => {
+      () => {
         setImageFileUploadError(
           "Couldn't upload image (File must be less than 2MB)"
         );
